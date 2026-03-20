@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DentFlow AI — Never Miss a Patient Call Again</title>
+<meta name="description" content="DentFlow AI answers every patient call 24/7, books appointments, sends reminders, and follows up with no-shows. Built exclusively for dental practices. Start your free 7-day trial.">
+<meta property="og:title" content="DentFlow AI — Never Miss a Patient Call Again">
+<meta property="og:description" content="AI receptionist built exclusively for dental practices. Answers calls 24/7, books appointments, sends reminders. $497/month. Free 7-day trial.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://meetdentflow.com">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DentFlow AI — Never Miss a Patient Call Again">
+<meta name="twitter:description" content="AI receptionist built exclusively for dental practices. Answers calls 24/7, books appointments, sends reminders.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563EB'/><path d='M16 6L10 9.5V14c0 4.5 3 7.5 6 8.5 3-1 6-4 6-8.5V9.5L16 6z' fill='white'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF;
+  --surface:#F8F9FA;
+  --border:#E9ECEF;
+  --text:#1A1A2E;
+  --text2:#4A4A68;
+  --text3:#8E8EA0;
+  --blue:#2563EB;
+  --blue-light:#EFF6FF;
+  --blue-dark:#1E40AF;
+  --green:#059669;
+  --green-light:#ECFDF5;
+  --red:#DC2626;
+  --red-light:#FEF2F2;
+  --font:'DM Sans',system-ui,-apple-system,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
+
+.nav{display:flex;justify-content:space-between;align-items:center;padding:16px 48px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);z-index:100}
+.nav-brand{display:flex;align-items:center;gap:8px;text-decoration:none}
+.nav-logo{width:32px;height:32px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.nav-logo svg{width:18px;height:18px}
+.nav-name{font-size:18px;font-weight:700;color:var(--text)}
+.nav-name span{color:var(--blue)}
+.nav-links{display:flex;gap:32px;font-size:14px}
+.nav-links a{color:var(--text2);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
+.nav-cta-wrap{display:flex;align-items:center;gap:16px}
+.nav-email{font-size:13px;color:var(--text3);display:none}
+.mobile-toggle{display:none;background:none;border:none;cursor:pointer;padding:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;transition:all .2s;border:none;cursor:pointer;font-family:var(--font)}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--blue);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--blue);background:var(--blue-light)}
+
+.hero{max-width:1100px;margin:0 auto;padding:80px 48px 60px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--green-light);color:var(--green);font-size:13px;font-weight:600;padding:6px 16px;border-radius:100px;margin-bottom:24px}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%}
+.hero h1{font-size:clamp(36px,5vw,56px);font-weight:700;line-height:1.12;color:var(--text);margin-bottom:20px;letter-spacing:-0.5px}
+.hero h1 span{color:var(--blue)}
+.hero>p{font-size:18px;color:var(--text2);max-width:600px;margin:0 auto 36px;line-height:1.7;font-weight:400}
+.hero-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-stats{display:flex;justify-content:center;gap:48px;margin-top:56px;padding-top:40px;border-top:1px solid var(--border)}
+.hero-stat{text-align:center}
+.hero-stat-num{font-size:32px;font-weight:700;color:var(--text)}
+.hero-stat-label{font-size:13px;color:var(--text3);margin-top:4px}
+
+.problem{background:var(--surface);padding:80px 48px}
+.problem-inner{max-width:1100px;margin:0 auto}
+.section-label{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.problem h2{font-size:32px;font-weight:700;margin-bottom:16px;line-height:1.2}
+.problem-inner>p{font-size:16px;color:var(--text2);max-width:640px;line-height:1.7;margin-bottom:40px}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.problem-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:28px 24px}
+.problem-card-icon{width:40px;height:40px;border-radius:10px;background:var(--red-light);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.problem-card h3{font-size:16px;font-weight:600;margin-bottom:8px}
+.problem-card p{font-size:14px;color:var(--text2);line-height:1.65}
+
+.solution{padding:80px 48px;max-width:1100px;margin:0 auto}
+.solution h2{font-size:32px;font-weight:700;margin-bottom:16px}
+.solution>p{font-size:16px;color:var(--text2);max-width:640px;line-height:1.7;margin-bottom:48px}
+.solution-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.solution-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px 24px;transition:all .25s}
+.solution-card:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,0.06)}
+.solution-card-icon{width:40px;height:40px;border-radius:10px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.solution-card h3{font-size:16px;font-weight:600;margin-bottom:8px}
+.solution-card p{font-size:14px;color:var(--text2);line-height:1.65}
+
+.how{background:var(--surface);padding:80px 48px}
+.how-inner{max-width:1100px;margin:0 auto}
+.how h2{font-size:32px;font-weight:700;margin-bottom:48px}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.how-step{position:relative}
+.how-step-num{width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.how-step h3{font-size:16px;font-weight:600;margin-bottom:8px}
+.how-step p{font-size:14px;color:var(--text2);line-height:1.65}
+
+.pricing{padding:80px 48px;max-width:900px;margin:0 auto;text-align:center}
+.pricing h2{font-size:32px;font-weight:700;margin-bottom:12px}
+.pricing>p{font-size:16px;color:var(--text2);margin-bottom:48px;line-height:1.7}
+.price-card{background:var(--bg);border:2px solid var(--blue);border-radius:16px;padding:40px 36px;text-align:left;max-width:480px;margin:0 auto;position:relative}
+.price-card-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:12px;font-weight:700;padding:4px 16px;border-radius:100px;letter-spacing:0.5px;white-space:nowrap}
+.price-card-name{font-size:14px;color:var(--text3);font-weight:500;margin-bottom:4px;margin-top:8px}
+.price-card-price{font-size:48px;font-weight:700;color:var(--text);margin-bottom:4px}
+.price-card-price span{font-size:16px;font-weight:400;color:var(--text3)}
+.price-card-sub{font-size:14px;color:var(--text3);margin-bottom:28px}
+.price-features{list-style:none;margin-bottom:32px}
+.price-features li{font-size:14px;color:var(--text2);padding:10px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;line-height:1.5}
+.price-features li:last-child{border-bottom:none}
+.check{width:18px;height:18px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.check svg{width:10px;height:10px}
+
+.roi{background:var(--text);color:#fff;padding:64px 48px;text-align:center}
+.roi-inner{max-width:800px;margin:0 auto}
+.roi h2{font-size:28px;font-weight:700;margin-bottom:12px}
+.roi>p,.roi-inner>p{font-size:16px;color:rgba(255,255,255,0.7);margin-bottom:36px;line-height:1.7}
+.roi-math{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.roi-item{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:24px 16px}
+.roi-item-num{font-size:28px;font-weight:700;color:#fff}
+.roi-item-label{font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px}
+
+.cta{padding:80px 48px;text-align:center;max-width:700px;margin:0 auto}
+.cta h2{font-size:32px;font-weight:700;margin-bottom:12px}
+.cta>p{font-size:16px;color:var(--text2);margin-bottom:32px;line-height:1.7}
+.form-wrap{max-width:440px;margin:0 auto}
+.form-wrap form{display:flex;flex-direction:column;gap:12px}
+.form-input{padding:14px 16px;border:1.5px solid var(--border);border-radius:8px;font-size:15px;font-family:var(--font);outline:none;transition:border-color .2s;color:var(--text);background:var(--bg)}
+.form-input:focus{border-color:var(--blue)}
+.form-input::placeholder{color:var(--text3)}
+.form-note{font-size:12px;color:var(--text3);text-align:center;margin-top:4px}
+.form-success{display:none;padding:20px;background:var(--green-light);border-radius:12px;text-align:center}
+.form-success p{font-size:16px;color:var(--green);font-weight:600;margin-bottom:4px}
+.form-success span{font-size:13px;color:var(--text2)}
+
+footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+footer p{font-size:13px;color:var(--text3)}
+footer a{color:var(--blue);text-decoration:none;font-size:13px}
+
+@media(min-width:801px){.nav-email{display:block}}
+@media(max-width:800px){
+  .nav{padding:14px 20px}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);flex-direction:column;padding:16px 20px;gap:16px}
+  .nav-links.open{display:flex}
+  .mobile-toggle{display:block}
+  .hero,.solution,.pricing,.cta{padding-left:20px;padding-right:20px}
+  .problem,.how{padding-left:20px;padding-right:20px}
+  .problem-grid,.solution-grid,.how-steps,.roi-math{grid-template-columns:1fr}
+  .hero-stats{flex-direction:column;gap:20px}
+  .hero-buttons{flex-direction:column;align-items:center}
+  .roi{padding-left:20px;padding-right:20px}
+  footer{flex-direction:column;text-align:center;padding:20px}
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.a{opacity:0;animation:fadeUp .7s cubic-bezier(0.16,1,0.3,1) forwards}
+.a1{animation-delay:.1s}.a2{animation-delay:.2s}.a3{animation-delay:.3s}.a4{animation-delay:.4s}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#" class="nav-brand">
+    <div class="nav-logo">
+      <svg viewBox="0 0 18 18" fill="none"><path d="M9 2L4 5v4c0 3.5 2.5 6 5 6.5 2.5-.5 5-3 5-6.5V5L9 2z" fill="#fff"/></svg>
+    </div>
+    <div class="nav-name">Dent<span>Flow</span> AI</div>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#how">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#roi">ROI Calculator</a>
+    <a href="#cta">Get Demo</a>
+  </div>
+  <div class="nav-cta-wrap">
+    <span class="nav-email">dentflow@meetdentflow.com</span>
+    <a href="#cta" class="btn btn-primary">Get Free Demo</a>
+    <button class="mobile-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="#1A1A2E" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge a a1">Built exclusively for dental practices</div>
+  <h1 class="a a2">Never miss a<br><span>patient call</span> again</h1>
+  <p class="a a3">DentFlow AI answers every call, books appointments, sends reminders, and follows up with patients — 24 hours a day, 7 days a week. Your front desk team focuses on the patients in front of them. The AI handles everyone else.</p>
+  <div class="hero-buttons a a4">
+    <a href="#cta" class="btn btn-primary">See It In Action — Free</a>
+    <a href="#how" class="btn btn-outline">How It Works</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">35%</div>
+      <div class="hero-stat-label">of dental calls go unanswered</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">$150K+</div>
+      <div class="hero-stat-label">lost revenue per year from missed calls</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">24/7</div>
+      <div class="hero-stat-label">DentFlow answers every single one</div>
+    </div>
+  </div>
+</section>
+
+<div style="padding:20px 48px;text-align:center;border-bottom:1px solid var(--border)">
+  <p style="font-size:13px;color:var(--text3)">Powered by enterprise-grade AI trusted by 1,300+ agencies worldwide. HIPAA-conscious. SOC 2-ready infrastructure. 160+ languages supported.</p>
+</div>
+
+<section class="problem">
+  <div class="problem-inner">
+    <div class="section-label">The problem</div>
+    <h2>Your front desk is losing you patients every day</h2>
+    <p>When a patient calls and no one answers, they don't leave a voicemail. They call the next dentist. Here's what's happening right now at most dental practices:</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-card-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M13 5L5 13M5 5l8 8" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Missed calls during lunch, holidays, and after hours</h3>
+        <p>Your team takes breaks. Your phones don't have to. Every missed call is a patient choosing another practice.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="#DC2626" stroke-width="1.5"/><path d="M9 6v3l2 2" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Front desk overwhelmed with repetitive questions</h3>
+        <p>"Do you accept my insurance?" "What are your hours?" "Can I reschedule?" These eat 2-3 hours daily that your team could spend on patient care.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 14l10-10M14 4v4M14 4h-4" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>No-shows and cancellations with no follow-up</h3>
+        <p>Patients ghost appointments. Without automated reminders and rescheduling, those time slots — and that revenue — vanish.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="solution" id="how">
+  <div class="section-label">The solution</div>
+  <h2>An AI receptionist that never takes a day off</h2>
+  <p>DentFlow AI plugs into your practice and handles patient communication automatically — calls, texts, chat, and email. It sounds natural, knows your practice inside out, and works around the clock.</p>
+  <div class="solution-grid">
+    <div class="solution-card">
+      <div class="solution-card-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M15 11.5a3.5 3.5 0 01-3.5 3.5H6a3 3 0 01-.4-5.98A4.5 4.5 0 0114.5 8c.28 0 .55.02.82.07A3.5 3.5 0 0115 11.5z" stroke="#2563EB" stroke-width="1.5"/></svg>
+      </div>
+      <h3>Answers every call</h3>
+      <p>Missed calls become answered calls. DentFlow picks up when your team can't — evenings, weekends, lunch breaks, holidays.</p>
+    </div>
+    <div class="solution-card">
+      <div class="solution-card-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="3" width="12" height="12" rx="2" stroke="#2563EB" stroke-width="1.5"/><path d="M7 9h4M9 7v4" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <h3>Books appointments</h3>
+      <p>Integrates with your scheduling software. Patients book directly through the AI — no hold times, no phone tag, no friction.</p>
+    </div>
+    <div class="solution-card">
+      <div class="solution-card-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 13l4-4 3 3 5-6" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Sends reminders</h3>
+      <p>Automated SMS and email reminders before every appointment. Patients confirm, cancel, or reschedule with one tap.</p>
+    </div>
+    <div class="solution-card">
+      <div class="solution-card-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L3 5v4c0 3.5 2.5 6 6 6.5 3.5-.5 6-3 6-6.5V5L9 2z" stroke="#2563EB" stroke-width="1.5"/></svg>
+      </div>
+      <h3>Knows your practice</h3>
+      <p>Trained on your specific services, insurance policies, pricing, doctors, and FAQs. It answers like your best front desk person.</p>
+    </div>
+    <div class="solution-card">
+      <div class="solution-card-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="#2563EB" stroke-width="1.5"/><path d="M7 9l1.5 1.5L11 7.5" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Follows up automatically</h3>
+      <p>Patient didn't book? DentFlow follows up with a friendly text. No-show? It sends a reschedule link. Nothing falls through the cracks.</p>
+    </div>
+    <div class="solution-card">
+      <div class="solution-card-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="2" stroke="#2563EB" stroke-width="1.5"/><path d="M6 8h6M6 11h3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <h3>Weekly reports</h3>
+      <p>Every Monday: calls answered, appointments booked, questions asked, follow-ups sent. You see the ROI in black and white.</p>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how-it-works">
+  <div class="how-inner">
+    <div class="section-label">Getting started</div>
+    <h2>Live in 48 hours. No IT required.</h2>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">1</div>
+        <h3>15-minute setup call</h3>
+        <p>We learn about your practice — services, hours, insurance, team, and how you want patients handled. That's all we need from you.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">2</div>
+        <h3>We build your AI agent</h3>
+        <p>Within 48 hours, your custom AI receptionist is trained, tested, and ready. It knows your practice like a 10-year employee.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">3</div>
+        <h3>It starts working</h3>
+        <p>Calls get answered. Appointments get booked. Reminders go out. You get weekly reports. Your team gets their time back.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="roi" id="roi">
+  <div class="roi-inner">
+    <h2>The math that sells itself</h2>
+    <p>The average dental practice loses $150,000+ per year from missed calls and no-shows. DentFlow pays for itself by capturing just 2-3 patients per month that would have been lost.</p>
+    <div class="roi-math">
+      <div class="roi-item">
+        <div class="roi-item-num">$1,200+</div>
+        <div class="roi-item-label">Average lifetime value of one new patient</div>
+      </div>
+      <div class="roi-item">
+        <div class="roi-item-num">3-5</div>
+        <div class="roi-item-label">Additional patients captured per month</div>
+      </div>
+      <div class="roi-item">
+        <div class="roi-item-num">12x</div>
+        <div class="roi-item-label">Average return on DentFlow investment</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="section-label">Simple pricing</div>
+  <h2>Less than what you lose from one missed patient</h2>
+  <p>No setup fees. No contracts. Cancel anytime. We're confident you won't want to.</p>
+  <div class="price-card">
+    <div class="price-card-badge">Most practices choose this</div>
+    <div class="price-card-name">DentFlow AI Receptionist</div>
+    <div class="price-card-price">$497 <span>/month</span></div>
+    <div class="price-card-sub">Pays for itself with 1 additional patient per month</div>
+    <ul class="price-features">
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>24/7 AI call answering and chat</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Appointment booking and scheduling</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Automated patient reminders (SMS + email)</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>No-show follow-up and rescheduling</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Custom-trained on your practice</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Weekly performance reports</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Bilingual support (English + Spanish)</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>No setup fees. No contracts.</li>
+    </ul>
+    <a href="#cta" class="btn btn-primary" style="width:100%;justify-content:center;padding:14px">Start Free 7-Day Trial</a>
+  </div>
+</section>
+
+<section class="cta" id="cta">
+  <div class="section-label">Get started</div>
+  <h2>See DentFlow handle your real patient calls</h2>
+  <p>We'll build a free demo using your actual practice information. Call it, test it, see how it handles your most common patient questions. No commitment. No credit card.</p>
+  <div class="form-wrap">
+    <!-- IMPORTANT: Replace REPLACE_WITH_YOUR_FORMSPREE_ID below with your real Formspree form ID (e.g. "mrgvqkzl") -->
+    <!-- Get your free Formspree ID at: https://formspree.io — create form, copy the ID -->
+    <form id="demoForm" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORMSPREE_ID" method="POST">
+      <input type="text" name="practice" class="form-input" placeholder="Practice name" required>
+      <input type="email" name="email" class="form-input" placeholder="Your email" required>
+      <input type="tel" name="phone" class="form-input" placeholder="Your phone number" required>
+      <input type="hidden" name="_subject" value="New DentFlow Demo Request">
+      <button type="submit" class="btn btn-primary" style="padding:14px;justify-content:center;font-size:16px;width:100%">Get My Free Demo</button>
+      <p class="form-note">Free demo. No credit card required. Roberto will personally respond within 24 hours.</p>
+    </form>
+    <div class="form-success" id="formSuccess">
+      <p>You're in!</p>
+      <span>Roberto will reach out within 24 hours to set up your custom demo.</span>
+    </div>
+    <p style="font-size:12px;color:var(--text3);text-align:center;margin-top:16px">Or email us directly: <a href="mailto:dentflow@meetdentflow.com" style="color:var(--blue)">dentflow@meetdentflow.com</a></p>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 DentFlow AI. Built exclusively for dental practices.</p>
+  <a href="mailto:dentflow@meetdentflow.com">dentflow@meetdentflow.com</a>
+</footer>
+
+<script>
+document.getElementById('demoForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var f=this;
+  fetch(f.action,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}})
+  .then(function(r){
+    if(r.ok){f.style.display='none';document.getElementById('formSuccess').style.display='block';}
+    else{alert('Something went wrong. Please email us at dentflow@meetdentflow.com');}
+  }).catch(function(){alert('Something went wrong. Please email us at dentflow@meetdentflow.com');});
+});
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});
+},{threshold:0.1});
+document.querySelectorAll('.problem-card,.solution-card,.how-step,.roi-item,.price-card').forEach(function(el){
+  el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='all .6s cubic-bezier(0.16,1,0.3,1)';obs.observe(el);
+});
+</script>
+</body>
+</html>
