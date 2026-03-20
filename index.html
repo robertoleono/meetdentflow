@@ -363,7 +363,13 @@ footer a{color:var(--blue);text-decoration:none;font-size:13px}
   <div class="form-wrap">
     <!-- IMPORTANT: Replace REPLACE_WITH_YOUR_FORMSPREE_ID below with your real Formspree form ID (e.g. "mrgvqkzl") -->
     <!-- Get your free Formspree ID at: https://formspree.io — create form, copy the ID -->
-    <form id="demoForm" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORMSPREE_ID" method="POST">
+    <form id="demoForm" onsubmit="window.location.href='mailto:dentflow@meetdentflow.com?subject=Demo Request from '+document.getElementById('pname').value+'&body=Practice: '+document.getElementById('pname').value+'%0AEmail: '+document.getElementById('pemail').value+'%0APhone: '+document.getElementById('pphone').value;document.getElementById('demoForm').style.display='none';document.getElementById('formSuccess').style.display='block';return false;">
+      <input type="text" id="pname" name="practice" class="form-input" placeholder="Practice name" required>
+      <input type="email" id="pemail" name="email" class="form-input" placeholder="Your email" required>
+      <input type="tel" id="pphone" name="phone" class="form-input" placeholder="Your phone number" required>
+      <button type="submit" class="btn btn-primary" style="padding:14px;justify-content:center;font-size:16px;width:100%">Get My Free Demo</button>
+      <p class="form-note">Free demo. No credit card required. Roberto will personally respond within 24 hours.</p>
+    </form>
       <input type="text" name="practice" class="form-input" placeholder="Practice name" required>
       <input type="email" name="email" class="form-input" placeholder="Your email" required>
       <input type="tel" name="phone" class="form-input" placeholder="Your phone number" required>
