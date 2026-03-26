@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DentFlow AI — Never Miss a Patient Call Again</title>
+<title>DentFlow AI — Get More Dental Patients Every Week</title>
 <meta name="description" content="DentFlow AI answers every patient call 24/7, books appointments, sends reminders, and follows up with no-shows. Built exclusively for dental practices. Start your free 7-day trial.">
-<meta property="og:title" content="DentFlow AI — Never Miss a Patient Call Again">
+<meta property="og:title" content="DentFlow AI — Get More Dental Patients Every Week">
 <meta property="og:description" content="AI receptionist built exclusively for dental practices. Answers calls 24/7, books appointments, sends reminders. $497/month. Free 7-day trial.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://meetdentflow.com">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="DentFlow AI — Never Miss a Patient Call Again">
+<meta name="twitter:title" content="DentFlow AI — Get More Dental Patients Every Week">
 <meta name="twitter:description" content="AI receptionist built exclusively for dental practices. Answers calls 24/7, books appointments, sends reminders.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563EB'/><path d='M16 6L10 9.5V14c0 4.5 3 7.5 6 8.5 3-1 6-4 6-8.5V9.5L16 6z' fill='white'/></svg>">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -217,12 +217,6 @@ footer a{color:var(--blue);text-decoration:none;font-size:13px}
 @keyframes slideIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
 .quiz-card{animation:slideIn .35s cubic-bezier(0.16,1,0.3,1)}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>
-  (function(){
-    emailjs.init({ publicKey: 'YOUR_EMAILJS_PUBLIC_KEY' });
-  })();
-</script>
 </head>
 <body>
 
@@ -250,10 +244,10 @@ footer a{color:var(--blue);text-decoration:none;font-size:13px}
 
 <section class="hero">
   <div class="hero-badge a a1">Built exclusively for dental practices</div>
-  <h1 class="a a2">Your website answers<br>patients <span>24/7 — instantly</span></h1>
-  <p class="a a3">DentFlow AI is a live chat assistant trained specifically on your dental practice. It answers patient questions, captures leads, and gets them one step closer to booking — even when your front desk is busy or closed.</p>
+  <h1 class="a a2">Get more dental patients<br><span>every week</span></h1>
+  <p class="a a3">We help clinics capture, respond, and book patients automatically — so you never lose a lead to a missed call or slow reply.</p>
   <div class="hero-buttons a a4">
-    <a href="#cta" class="btn btn-primary">Talk to Sophie — Free Demo</a>
+    <a href="#cta" class="btn btn-primary">👉 Book a Demo</a>
     <a href="#how-it-works" class="btn btn-outline">How It Works</a>
   </div>
   <div class="hero-stats">
@@ -929,13 +923,7 @@ async function submitQuiz() {
     submitted_at: new Date().toLocaleString()
   };
 
-  try {
-    await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams);
-  } catch(e) {
-    console.warn('EmailJS error:', e);
-  }
-
-  // Also still ping Make webhook as backup
+  // Send to Make webhook
   try {
     await fetch('https://hook.us2.make.com/xgtknqyf4d96w8qmcoq27iynvfhcy8nm', {
       method: 'POST',
