@@ -667,9 +667,8 @@ Personality: warm, professional, concise. Keep responses to 2-4 sentences max. A
     sophieHistory.push({role:'user', content: text});
     sophieTyping(true);
     try{
-      const res = await fetch('https://api.anthropic.com/v1/messages',{
+      const res = await fetch('https://dentflow-sophie.chiflamicas57.workers.dev',{
         method:'POST',
-        headers:{'Content-Type':'application/json','x-api-key': window.DENTFLOW_API_KEY || '','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SOPHIE_SYSTEM,messages:sophieHistory})
       });
@@ -921,7 +920,7 @@ async function submitQuiz() {
 
   // Send to Make webhook
   try {
-    await fetch('https://hook.us2.make.com/dentflow-demo', {
+    await fetch('https://hook.us2.make.com/xgtknqyf4d96w8qmcoq27iynvfhcy8nm', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -940,10 +939,6 @@ async function submitQuiz() {
   // Scroll success into view
   document.getElementById('quizSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
-</script>
-
-<script>
-window.DENTFLOW_API_KEY = 'YOUR_NEW_API_KEY_HERE';
 </script>
 
 </body>
