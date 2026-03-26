@@ -608,11 +608,11 @@ footer a{color:var(--blue);text-decoration:none;font-size:13px}
 
 <script>
 (function(){
-  const now = new Date();
-  const dateStr = now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-  const timeStr = now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+  var now = new Date();
+  var dateStr = now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  var timeStr = now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
 
-  const SOPHIE_SYSTEM = `You are Sophie, the front desk receptionist at Bright Smile Dental in Austin, TX. You feel like a real, warm human being — not a bot. You're powered by DentFlow AI but you lead with your personality.
+  const SOPHIE_SYSTEM = `You are Sophie, the front desk receptionist at Bright Smile Dental in Austin, TX. You are warm, human, and genuinely helpful — not a bot. You are powered by DentFlow AI but you lead with personality.
 
 TODAY: ${dateStr}, ${timeStr}.
 
@@ -625,26 +625,26 @@ PRACTICE INFO:
 - New patient special: free consultation + full X-rays on first visit (normally $150)
 - Same-week appointments usually available; emergency same-day slots often open
 
-LANGUAGE: Detect what language the user writes in and ALWAYS respond in that same language. If they write in Spanish, respond in Spanish. If French, respond in French. Always match the user's language naturally.
+LANGUAGE: Detect the language the user writes in and ALWAYS respond in that SAME language. Spanish → Spanish. French → French. Portuguese → Portuguese. Match the user's language naturally from the very first response.
 
 PERSONALITY:
-- Warm, conversational, genuine — chat like a real person, not a FAQ page
+- Warm, conversational, genuine — talk like a real person, not a FAQ page
 - Use contractions naturally ("we're", "you'll", "I'd love to help")
-- If someone seems nervous about dental work, lead with empathy before logistics
-- You can do small talk — if someone says "good morning!" respond warmly
-- Keep answers to 2–4 sentences. If they ask multiple things, answer all naturally
-- End most messages with a gentle follow-up question
+- Show empathy if a patient seems nervous or in pain
+- Small talk is welcome — if someone says "good morning!" respond warmly
+- Keep answers to 2–4 sentences. Answer all questions if someone asks several
+- End most replies with a gentle follow-up question
 
-WHAT YOU DO:
-- Answer questions about services, pricing, insurance, hours, and location
+WHAT YOU CAN DO:
+- Answer questions about services, pricing, insurance, hours, location
 - Help patients understand what to expect from procedures
 - Reassure anxious patients
-- Help pre-qualify or guide someone toward booking an appointment
-- If asked about pricing you don't know: "Pricing depends on your insurance and treatment plan — I can have someone call you with an exact quote, would that work?"
-- Never diagnose — always suggest coming in for an exam
+- Guide someone toward booking an appointment
+- Unknown pricing: "It depends on insurance and treatment plan — I can have someone call you with an exact quote, would that work?"
+- Never diagnose — always recommend coming in for an exam
 
-If asked if you're AI: "I'm Sophie! I'm powered by DentFlow AI, so I'm here 24/7 — unlike most front desks 😄 What can I help you with?"
-If asked today's date or time: answer naturally using the date/time above.`;
+If asked if you're AI: "I'm Sophie! I run on DentFlow AI, which means I'm here 24/7 — unlike most front desks 😄 What can I help you with?"
+If asked today's date or time: answer naturally using the info above.`;
 
   let sophieHistory = [];
   let sophieBusy = false;
@@ -954,6 +954,7 @@ async function submitQuiz() {
       body: JSON.stringify(payload)
     });
   } catch(e) {
+    // Webhook failure is silent — still show success to user
     console.warn('Webhook error:', e);
   }
 
@@ -967,32 +968,29 @@ async function submitQuiz() {
 }
 </script>
 
-
 <script>
-// ── Sophie Voice Modal (ElevenLabs via Worker) ───────────────────
-const SOPHIE_GREETING = "Thank you for calling Bright Smile Dental, this is Sophie! How can I help you today?";
-let _sophieAudioCtx = null;
-let _sophieSource   = null;
+// ── Sophie Voice (ElevenLabs via Worker, browser TTS fallback) ──
+var _sophieAudioCtx = null;
+var _sophieSource   = null;
+var SOPHIE_GREETING = "Thank you for calling Bright Smile Dental, this is Sophie! How can I help you today?";
 
 async function sophieOpenVoice() {
   document.getElementById('sophieVoiceModal').style.display = 'flex';
   try {
-    // Call Worker /tts endpoint — key stays server-side
-    const res = await fetch('https://dentflow-sophie.chiflamicas57.workers.dev/tts', {
+    var res = await fetch('https://dentflow-sophie.chiflamicas57.workers.dev/tts', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: SOPHIE_GREETING })
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({text: SOPHIE_GREETING})
     });
-    if (!res.ok) throw new Error('TTS fetch failed');
-    const buffer = await res.arrayBuffer();
+    if (!res.ok) throw new Error('TTS ' + res.status);
+    var buffer = await res.arrayBuffer();
     _sophieAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const decoded = await _sophieAudioCtx.decodeAudioData(buffer);
+    var decoded = await _sophieAudioCtx.decodeAudioData(buffer);
     _sophieSource = _sophieAudioCtx.createBufferSource();
     _sophieSource.buffer = decoded;
     _sophieSource.connect(_sophieAudioCtx.destination);
     _sophieSource.start(0);
   } catch(e) {
-    // Fallback: browser TTS if ElevenLabs fails
     console.warn('ElevenLabs TTS failed, using browser TTS:', e);
     _sophieBrowserSpeak();
   }
@@ -1007,14 +1005,14 @@ function sophieCloseVoice() {
 
 function _sophieBrowserSpeak() {
   if (!('speechSynthesis' in window)) return;
-  const u = new SpeechSynthesisUtterance(SOPHIE_GREETING);
+  var u = new SpeechSynthesisUtterance(SOPHIE_GREETING);
   u.rate = 0.88; u.pitch = 1.08; u.volume = 1;
-  const voices = window.speechSynthesis.getVoices();
-  const priority = ['Google US English','Samantha','Karen',
+  var voices = window.speechSynthesis.getVoices();
+  var priority = ['Google US English','Samantha','Karen',
     'Microsoft Zira Desktop - English (United States)',
     'Google UK English Female','Victoria','Alice'];
-  const pick = priority.reduce((f,n) => f || voices.find(v => v.name === n), null)
-    || voices.find(v => /female/i.test(v.name) && /en/i.test(v.lang))
+  var pick = priority.reduce(function(f,n){ return f || voices.find(function(v){ return v.name === n; }); }, null)
+    || voices.find(function(v){ return /female/i.test(v.name) && /en/i.test(v.lang); })
     || voices[0];
   if (pick) u.voice = pick;
   window.speechSynthesis.speak(u);
