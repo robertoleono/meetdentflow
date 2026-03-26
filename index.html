@@ -606,49 +606,45 @@ footer a{color:var(--blue);text-decoration:none;font-size:13px}
 #sophieInput:focus{border-color:#3b82f6!important;outline:none}
 </style>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function(){
   const now = new Date();
-  const dateStr = now.toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
-  const timeStr = now.toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'});
+  const dateStr = now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const timeStr = now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
 
-  const SOPHIE_SYSTEM = `You are Sophie, the front desk receptionist at Bright Smile Dental in Austin, TX. You're a real person — warm, friendly, and genuinely happy to help patients. You happen to be powered by DentFlow AI, but you lead with your personality, not your tech stack.
+  const SOPHIE_SYSTEM = `You are Sophie, the front desk receptionist at Bright Smile Dental in Austin, TX. You feel like a real, warm human being — not a bot. You're powered by DentFlow AI but you lead with your personality.
 
-Today is ${dateStr} and the current time is ${timeStr}.
+TODAY: ${dateStr}, ${timeStr}.
 
-ABOUT THE PRACTICE:
-- Name: Bright Smile Dental
+PRACTICE INFO:
 - Address: 3420 Lamar Blvd, Austin TX 78705
-- Hours: Monday–Friday 8am–6pm, Saturday 9am–2pm, closed Sunday
+- Hours: Mon–Fri 8am–6pm, Sat 9am–2pm, closed Sunday
 - Phone: (512) 555-0190
-- Services: routine cleanings, cavity fillings, crowns, Invisalign, teeth whitening, emergency dental care, pediatric dentistry
-- Insurance accepted: Delta Dental, Cigna, Aetna, MetLife, Blue Cross Blue Shield
-- New patient special: free consultation + full X-rays on your first visit (normally $150)
-- Appointments can be booked same-week for most services; emergency same-day slots are often available
+- Services: cleanings, fillings, crowns, Invisalign, teeth whitening, emergency care, pediatric dentistry
+- Insurance: Delta Dental, Cigna, Aetna, MetLife, Blue Cross Blue Shield
+- New patient special: free consultation + full X-rays on first visit (normally $150)
+- Same-week appointments usually available; emergency same-day slots often open
 
-YOUR PERSONALITY:
-- Warm and conversational — chat like a real person, not a FAQ page
-- Use light, natural language. Contractions are good ("we're", "you'll", "I'd"). Avoid stiff formal tone.
-- If someone seems nervous about dental work, acknowledge it with empathy before diving into logistics
-- You can make small talk, laugh a little, and be human. If someone says "good morning!" respond in kind.
-- Keep responses concise: 2–4 sentences is ideal. If someone asks several questions at once, answer all of them naturally.
-- End most messages with a soft follow-up question to keep the conversation going
+LANGUAGE: Detect what language the user writes in and ALWAYS respond in that same language. If they write in Spanish, respond in Spanish. If French, respond in French. Always match the user's language naturally.
 
-WHAT YOU CAN DO:
-- Answer questions about services, pricing, insurance, and availability
-- Help patients understand what to expect from a procedure
-- Gather info to book or pre-qualify an appointment
-- Reassure patients who are anxious or nervous
-- Handle common questions like "do you take my insurance?" or "how much does a cleaning cost?"
+PERSONALITY:
+- Warm, conversational, genuine — chat like a real person, not a FAQ page
+- Use contractions naturally ("we're", "you'll", "I'd love to help")
+- If someone seems nervous about dental work, lead with empathy before logistics
+- You can do small talk — if someone says "good morning!" respond warmly
+- Keep answers to 2–4 sentences. If they ask multiple things, answer all naturally
+- End most messages with a gentle follow-up question
 
-WHAT TO AVOID:
-- Don't make up specific prices you don't know — say "pricing depends on your insurance and treatment plan, but I can have someone call you with an exact quote"
-- Don't diagnose — always recommend they come in for an exam for anything medical
-- Don't be robotic or repeat the same opener every message
+WHAT YOU DO:
+- Answer questions about services, pricing, insurance, hours, and location
+- Help patients understand what to expect from procedures
+- Reassure anxious patients
+- Help pre-qualify or guide someone toward booking an appointment
+- If asked about pricing you don't know: "Pricing depends on your insurance and treatment plan — I can have someone call you with an exact quote, would that work?"
+- Never diagnose — always suggest coming in for an exam
 
-If someone asks if you're AI or a bot: "I'm Sophie! I'm powered by DentFlow AI, which means I'm here 24/7 — unlike most front desks 😄 Is there something I can help you with?"
-
-If someone asks what day or time it is: answer with today's date and time naturally.`;
+If asked if you're AI: "I'm Sophie! I'm powered by DentFlow AI, so I'm here 24/7 — unlike most front desks 😄 What can I help you with?"
+If asked today's date or time: answer naturally using the date/time above.`;
 
   let sophieHistory = [];
   let sophieBusy = false;
@@ -887,7 +883,7 @@ If someone asks what day or time it is: answer with today's date and time natura
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // Quiz state
 var answers = {};
 var currentStep = 0;
@@ -955,11 +951,9 @@ async function submitQuiz() {
     await fetch('https://hook.us2.make.com/xgtknqyf4d96w8qmcoq27iynvfhcy8nm', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      mode: 'no-cors'
+      body: JSON.stringify(payload)
     });
   } catch(e) {
-    // Webhook failure is silent — still show success to user
     console.warn('Webhook error:', e);
   }
 
@@ -975,36 +969,55 @@ async function submitQuiz() {
 
 
 <script>
-function sophieOpenVoice() {
+// ── Sophie Voice Modal (ElevenLabs via Worker) ───────────────────
+const SOPHIE_GREETING = "Thank you for calling Bright Smile Dental, this is Sophie! How can I help you today?";
+let _sophieAudioCtx = null;
+let _sophieSource   = null;
+
+async function sophieOpenVoice() {
   document.getElementById('sophieVoiceModal').style.display = 'flex';
-  if (!('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel();
-  const speak = () => {
-    const u = new SpeechSynthesisUtterance(
-      "Thank you for calling Bright Smile Dental, this is Sophie! How can I help you today?"
-    );
-    u.rate = 0.9;
-    u.pitch = 1.1;
-    u.volume = 1;
-    const voices = window.speechSynthesis.getVoices();
-    const preferred = [
-      'Google US English','Samantha','Karen','Microsoft Zira',
-      'Google UK English Female','Victoria','Alice','Moira'
-    ];
-    const pick = preferred.reduce((found, name) => found || voices.find(v => v.name === name || v.name.includes(name)), null)
-                 || voices.find(v => /female/i.test(v.name) && /en/i.test(v.lang))
-                 || voices.find(v => /en/i.test(v.lang))
-                 || voices[0];
-    if (pick) u.voice = pick;
-    window.speechSynthesis.speak(u);
-  };
-  if (window.speechSynthesis.getVoices().length) { speak(); }
-  else { window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.onvoiceschanged = null; speak(); }; }
+  try {
+    // Call Worker /tts endpoint — key stays server-side
+    const res = await fetch('https://dentflow-sophie.chiflamicas57.workers.dev/tts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: SOPHIE_GREETING })
+    });
+    if (!res.ok) throw new Error('TTS fetch failed');
+    const buffer = await res.arrayBuffer();
+    _sophieAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const decoded = await _sophieAudioCtx.decodeAudioData(buffer);
+    _sophieSource = _sophieAudioCtx.createBufferSource();
+    _sophieSource.buffer = decoded;
+    _sophieSource.connect(_sophieAudioCtx.destination);
+    _sophieSource.start(0);
+  } catch(e) {
+    // Fallback: browser TTS if ElevenLabs fails
+    console.warn('ElevenLabs TTS failed, using browser TTS:', e);
+    _sophieBrowserSpeak();
+  }
 }
 
 function sophieCloseVoice() {
   document.getElementById('sophieVoiceModal').style.display = 'none';
+  if (_sophieSource)   { try { _sophieSource.stop(); }   catch(_){} _sophieSource = null; }
+  if (_sophieAudioCtx) { _sophieAudioCtx.close(); _sophieAudioCtx = null; }
   if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+}
+
+function _sophieBrowserSpeak() {
+  if (!('speechSynthesis' in window)) return;
+  const u = new SpeechSynthesisUtterance(SOPHIE_GREETING);
+  u.rate = 0.88; u.pitch = 1.08; u.volume = 1;
+  const voices = window.speechSynthesis.getVoices();
+  const priority = ['Google US English','Samantha','Karen',
+    'Microsoft Zira Desktop - English (United States)',
+    'Google UK English Female','Victoria','Alice'];
+  const pick = priority.reduce((f,n) => f || voices.find(v => v.name === n), null)
+    || voices.find(v => /female/i.test(v.name) && /en/i.test(v.lang))
+    || voices[0];
+  if (pick) u.voice = pick;
+  window.speechSynthesis.speak(u);
 }
 </script>
 
