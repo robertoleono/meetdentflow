@@ -234,7 +234,7 @@ footer a{color:var(--blue);text-decoration:none;font-size:13px}
     <a href="#cta">Get Demo</a>
   </div>
   <div class="nav-cta-wrap">
-    <span class="nav-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="523a373e3e3d123f37372636373c26343e3d257c313d3f">[email&#160;protected]</a></span>
+    <span class="nav-email"><a href="mailto:hello@meetdentflow.com">hello@meetdentflow.com</a></span>
     <a href="#cta" class="btn btn-primary">Get Free Demo</a>
     <button class="mobile-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="#1A1A2E" stroke-width="2" stroke-linecap="round"/></svg>
@@ -545,7 +545,7 @@ footer a{color:var(--blue);text-decoration:none;font-size:13px}
         <p style="font-size:14px;color:var(--text2);line-height:1.65;">You can request deletion of your data at any time. We never use patient conversations to train AI models without explicit written consent.</p>
       </div>
     </div>
-    <p style="font-size:13px;color:var(--text3);margin-top:24px;">Questions about data handling? Email us at <a href="mailto:hello@meetdentflow.com" style="color:var(--blue)">hello@meetdentflow.com</a> — a real person will respond within 24 hours.</p>
+    <p style="font-size:13px;color:var(--text3);margin-top:24px;">Questions about data handling? Email us at <a href="mailto:hello@meetdentflow.com">hello@meetdentflow.com</a> — a real person will respond within 24 hours.</p>
   </div>
 </section>
 
@@ -656,14 +656,14 @@ footer a{color:var(--blue);text-decoration:none;font-size:13px}
       <h3>You're in! 🎉</h3>
       <p>Your custom DentFlow demo is being built right now.</p>
       <p>We'll send everything to <strong id="confirmEmail"></strong></p>
-      <p style="font-size:13px;color:var(--text3);margin-top:4px;">Questions? Reply to that email or reach us at <a href="mailto:hello@meetdentflow.com" style="color:var(--blue)">hello@meetdentflow.com</a></p>
+      <p style="font-size:13px;color:var(--text3);margin-top:4px;">Questions? Reply to that email or reach us at <a href="mailto:hello@meetdentflow.com">hello@meetdentflow.com</a></p>
       <div class="sarah-note">
         💬 Sarah from our team will reach out within 24 hours via email to walk you through your demo — no calls needed.
       </div>
     </div>
 
   </div>
-  <p style="font-size:12px;color:var(--text3);text-align:center;margin-top:20px">Questions? Email us: <a href="/cdn-cgi/l/email-protection#8ee6ebe2e2e1cee3ebebfaeaebe0fae8e2e1f9a0ede1e3" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="98f0fdf4f4f7d8f5fdfdecfcfdf6ecfef4f7efb6fbf7f5">[email&#160;protected]</span></a></p>
+  <p style="font-size:12px;color:var(--text3);text-align:center;margin-top:20px">Questions? Email us: <a href="mailto:hello@meetdentflow.com">hello@meetdentflow.com</a></p>
 </section>
 
 <footer>
@@ -671,11 +671,13 @@ footer a{color:var(--blue);text-decoration:none;font-size:13px}
   <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:center;">
     <a href="mailto:hello@meetdentflow.com" style="color:var(--blue);text-decoration:none;font-size:13px;">hello@meetdentflow.com</a>
     <span style="color:var(--border)">|</span>
+    <a href="tel:+15125550190" style="color:var(--text3);text-decoration:none;font-size:13px;">(512) 555-0190</a>
+    <span style="color:var(--border)">|</span>
     <a href="https://meetdentflow.com" style="color:var(--text3);text-decoration:none;font-size:13px;">meetdentflow.com</a>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Quiz state
 var answers = {};
 var currentStep = 0;
@@ -736,17 +738,4 @@ function submitQuiz() {
   };
 
   // Show success immediately (optimistic UX)
-  document.getElementById('step3').style.display = 'none';
-  document.getElementById('quizProgress').style.display = 'none';
-  var successEl = document.getElementById('quizSuccess');
-  successEl.style.display = 'block';
-  document.getElementById('confirmEmail').textContent = email;
-
-  // Update all progress dots to done
-  for (var i = 0; i < 4; i++) {
-    var dot = document.getElementById('dot' + i);
-    dot.className = 'quiz-dot done';
-  }
-
-  // Submit to Formspree in background
-  // IMPORTANT: Replace REPLACE_WITH_YOUR_FORMSPREE_ID with your real Form
+  document.getElementById('s
