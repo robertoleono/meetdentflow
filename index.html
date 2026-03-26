@@ -512,7 +512,7 @@ footer a{color:var(--blue);text-decoration:none;font-size:13px}
       <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Bilingual support (English + Spanish)</li>
       <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>No setup fees. No contracts.</li>
     </ul>
-    <a href="#cta" class="btn btn-primary" style="width:100%;justify-content:center;padding:14px">Start Free 7-Day Trial</a>
+    <a href="https://www.paypal.com/ncp/payment/P678L247X7HAE" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;justify-content:center;padding:14px">Start Free 7-Day Trial</a>
   </div>
 </section>
 
@@ -606,7 +606,7 @@ footer a{color:var(--blue);text-decoration:none;font-size:13px}
 #sophieInput:focus{border-color:#3b82f6!important;outline:none}
 </style>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
   const SOPHIE_SYSTEM = `You are Sophie, the AI receptionist for Bright Smile Dental, a modern dental practice in Austin, TX.
 Practice details:
@@ -669,6 +669,7 @@ Personality: warm, professional, concise. Keep responses to 2-4 sentences max. A
     try{
       const res = await fetch('https://api.anthropic.com/v1/messages',{
         method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key': window.DENTFLOW_API_KEY || '','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SOPHIE_SYSTEM,messages:sophieHistory})
       });
@@ -855,7 +856,7 @@ Personality: warm, professional, concise. Keep responses to 2-4 sentences max. A
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Quiz state
 var answers = {};
 var currentStep = 0;
@@ -888,7 +889,7 @@ function updateProgress(n) {
     var dot = document.getElementById('dot' + i);
     dot.className = 'quiz-dot';
     if (i < n) dot.classList.add('done');
-    else if (i === n) dot.classList.add('active');
+    if (i === n) dot.classList.add('active');
   }
 }
 
@@ -896,24 +897,54 @@ function checkFinalStep() {
   var name = document.getElementById('inputName').value.trim();
   var email = document.getElementById('inputEmail').value.trim();
   var practice = document.getElementById('inputPractice').value.trim();
-  var valid = name.length > 0 && email.indexOf('@') > 0 && practice.length > 0;
-  document.getElementById('next3').disabled = !valid;
+  var emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  document.getElementById('next3').disabled = !(name && emailValid && practice);
 }
 
-function submitQuiz() {
-  var email = document.getElementById('inputEmail').value.trim();
+async function submitQuiz() {
   var name = document.getElementById('inputName').value.trim();
+  var email = document.getElementById('inputEmail').value.trim();
   var practice = document.getElementById('inputPractice').value.trim();
 
-  // Build payload
+  document.getElementById('next3').disabled = true;
+  document.getElementById('next3').textContent = 'Sending...';
+
   var payload = {
     name: name,
     email: email,
     practice: practice,
-    practiceType: answers.practiceType,
-    pain: answers.pain,
-    locations: answers.locations
+    practiceType: answers.practiceType || '',
+    pain: answers.pain || '',
+    locations: answers.locations || '',
+    submittedAt: new Date().toISOString()
   };
 
-  // Show success immediately (optimistic UX)
-  document.getElementById('s
+  // Send to Make webhook
+  try {
+    await fetch('https://hook.us2.make.com/dentflow-demo', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      mode: 'no-cors'
+    });
+  } catch(e) {
+    // Webhook failure is silent — still show success to user
+    console.warn('Webhook error:', e);
+  }
+
+  // Show success screen
+  document.getElementById('step3').style.display = 'none';
+  document.getElementById('quizSuccess').style.display = 'block';
+  document.getElementById('confirmEmail').textContent = email;
+
+  // Scroll success into view
+  document.getElementById('quizSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+</script>
+
+<script>
+window.DENTFLOW_API_KEY = 'YOUR_NEW_API_KEY_HERE';
+</script>
+
+</body>
+</html>
