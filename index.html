@@ -217,6 +217,12 @@ footer a{color:var(--blue);text-decoration:none;font-size:13px}
 @keyframes slideIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
 .quiz-card{animation:slideIn .35s cubic-bezier(0.16,1,0.3,1)}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init({ publicKey: 'YOUR_EMAILJS_PUBLIC_KEY' });
+  })();
+</script>
 </head>
 <body>
 
@@ -234,7 +240,7 @@ footer a{color:var(--blue);text-decoration:none;font-size:13px}
     <a href="#cta">Get Demo</a>
   </div>
   <div class="nav-cta-wrap">
-    <span class="nav-email"><a href="/cdn-cgi/l/email-protection#f49c9198989bb49991918090919a8092989b83da979b99"><span class="__cf_email__" data-cfemail="264e434a4a49664b43435242434852404a49510845494b">[email&#160;protected]</span></a></span>
+    <span class="nav-email"><a href="#" onclick="return false;" id="nav-email-link"></a></span>
     <a href="#cta" class="btn btn-primary">Get Free Demo</a>
     <button class="mobile-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="#1A1A2E" stroke-width="2" stroke-linecap="round"/></svg>
@@ -718,7 +724,7 @@ REMEMBER: You represent Bright Smile Dental. Every interaction is a chance to ma
         <p style="font-size:14px;color:var(--text2);line-height:1.65;">You can request deletion of your data at any time. We never use patient conversations to train AI models without explicit written consent.</p>
       </div>
     </div>
-    <p style="font-size:13px;color:var(--text3);margin-top:24px;">Questions about data handling? Email us at <a href="/cdn-cgi/l/email-protection#1078757c7c7f507d75756474757e64767c7f673e737f7d"><span class="__cf_email__" data-cfemail="046c6168686b446961617060616a7062686b732a676b69">[email&#160;protected]</span></a> — a real person will respond within 24 hours.</p>
+    <p style="font-size:13px;color:var(--text3);margin-top:24px;">Questions about data handling? Email us at <a id="security-email-link" href="#" onclick="return false;"></a> — a real person will respond within 24 hours.</p>
   </div>
 </section>
 
@@ -829,20 +835,20 @@ REMEMBER: You represent Bright Smile Dental. Every interaction is a chance to ma
       <h3>You're in! 🎉</h3>
       <p>Your custom DentFlow demo is being built right now.</p>
       <p>We'll send everything to <strong id="confirmEmail"></strong></p>
-      <p style="font-size:13px;color:var(--text3);margin-top:4px;">Questions? Reply to that email or reach us at <a href="/cdn-cgi/l/email-protection#b3dbd6dfdfdcf3ded6d6c7d7d6ddc7d5dfdcc49dd0dcde"><span class="__cf_email__" data-cfemail="2149444d4d4e614c44445545444f55474d4e560f424e4c">[email&#160;protected]</span></a></p>
+      <p style="font-size:13px;color:var(--text3);margin-top:4px;">Questions? Reply to that email or reach us at <a id="success-email-link" href="#" onclick="return false;"></a></p>
       <div class="sarah-note">
         💬 Sarah from our team will reach out within 24 hours via email to walk you through your demo — no calls needed.
       </div>
     </div>
 
   </div>
-  <p style="font-size:12px;color:var(--text3);text-align:center;margin-top:20px">Questions? Email us: <a href="/cdn-cgi/l/email-protection#86eee3eaeae9c6ebe3e3f2e2e3e8f2e0eae9f1a8e5e9eb"><span class="__cf_email__" data-cfemail="bcd4d9d0d0d3fcd1d9d9c8d8d9d2c8dad0d3cb92dfd3d1">[email&#160;protected]</span></a></p>
+  <p style="font-size:12px;color:var(--text3);text-align:center;margin-top:20px">Questions? Email us: <a id="quiz-email-link" href="#" onclick="return false;"></a></p>
 </section>
 
 <footer>
   <p>&copy; 2026 DentFlow AI. Built exclusively for dental practices.</p>
   <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:center;">
-    <a href="/cdn-cgi/l/email-protection#244c4148484b644941415040414a5042484b530a474b49" style="color:var(--blue);text-decoration:none;font-size:13px;"><span class="__cf_email__" data-cfemail="5b333e3737341b363e3e2f3f3e352f3d37342c75383436">[email&#160;protected]</span></a>
+    <a id="footer-email-link" href="#" onclick="return false;" style="color:var(--blue);text-decoration:none;font-size:13px;"></a>
     <span style="color:var(--border)">|</span>
     <a href="tel:+15125550190" style="color:var(--text3);text-decoration:none;font-size:13px;">(512) 555-0190</a>
     <span style="color:var(--border)">|</span>
@@ -850,18 +856,28 @@ REMEMBER: You represent Bright Smile Dental. Every interaction is a chance to ma
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false">
+// Build email links without Cloudflare detecting them
+(function() {
+  var u = 'hello', d = 'meetdentflow.com';
+  var email = u + '@' + d;
+  var mailto = 'mailto:' + email;
+  var ids = ['nav-email-link','security-email-link','success-email-link','quiz-email-link','footer-email-link'];
+  ids.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.href = mailto; el.textContent = email; }
+  });
+})();
+
 // Quiz state
 var answers = {};
 var currentStep = 0;
 
 function selectOption(el, key, val) {
-  // Deselect siblings
   var parent = el.parentElement;
   parent.querySelectorAll('.quiz-option').forEach(function(o){ o.classList.remove('selected'); });
   el.classList.add('selected');
   answers[key] = val;
-  // Enable next button for this step
   var stepIndex = parseInt(el.closest('.quiz-card').id.replace('step',''));
   document.getElementById('next' + stepIndex).disabled = false;
 }
@@ -871,9 +887,8 @@ function goStep(n) {
   currentStep = n;
   var card = document.getElementById('step' + n);
   card.style.display = 'block';
-  // Force re-animation
   card.style.animation = 'none';
-  card.offsetHeight; // reflow
+  card.offsetHeight;
   card.style.animation = '';
   updateProgress(n);
 }
@@ -900,37 +915,38 @@ async function submitQuiz() {
   var email = document.getElementById('inputEmail').value.trim();
   var practice = document.getElementById('inputPractice').value.trim();
 
-  document.getElementById('next3').disabled = true;
-  document.getElementById('next3').textContent = 'Sending...';
+  var btn = document.getElementById('next3');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
 
-  var payload = {
-    name: name,
-    email: email,
+  var templateParams = {
+    from_name: name,
+    from_email: email,
     practice: practice,
-    practiceType: answers.practiceType || '',
+    practice_type: answers.practiceType || '',
     pain: answers.pain || '',
     locations: answers.locations || '',
-    submittedAt: new Date().toISOString()
+    submitted_at: new Date().toLocaleString()
   };
 
-  // Send to Make webhook
+  try {
+    await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams);
+  } catch(e) {
+    console.warn('EmailJS error:', e);
+  }
+
+  // Also still ping Make webhook as backup
   try {
     await fetch('https://hook.us2.make.com/xgtknqyf4d96w8qmcoq27iynvfhcy8nm', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(templateParams)
     });
-  } catch(e) {
-    // Webhook failure is silent — still show success to user
-    console.warn('Webhook error:', e);
-  }
+  } catch(e) {}
 
-  // Show success screen
   document.getElementById('step3').style.display = 'none';
   document.getElementById('quizSuccess').style.display = 'block';
   document.getElementById('confirmEmail').textContent = email;
-
-  // Scroll success into view
   document.getElementById('quizSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 </script>
