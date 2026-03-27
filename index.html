@@ -846,8 +846,7 @@ REMEMBER: Every interaction is a chance to make a patient feel cared for.`;
       // Bold
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
       // Line breaks
-      .replace(/
-/g, '<br>');
+      .replace(/\n/g, '<br>');
   }
 
   async function sophieInit(){
@@ -979,8 +978,8 @@ async function submitQuiz() {
   btn.innerHTML = 'Sending…';
 
   var templateParams = {
-    from_name: name,
-    from_email: email,
+    name: name,
+    email: email,
     practice: practice,
     practice_type: answers.practiceType || '',
     pain: answers.pain || '',
